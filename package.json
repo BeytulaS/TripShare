@@ -1,0 +1,31 @@
+{
+  "name": "tripshare-supabase",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.11.16",
+    "@supabase/auth-ui-react": "^0.3.5",
+    "@supabase/supabase-js": "^2.15.0",
+    "playwright": "^1.32.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.10.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.32.2",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react": "^3.1.0",
+    "detect-port": "^1.5.1",
+    "supabase": "^1.49.4",
+    "vite": "^4.2.0"
+  }
+}
