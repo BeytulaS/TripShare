@@ -5,11 +5,13 @@ import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import HomePage from "./components/Home";
 import ProfilePage from "./components/Profile";
-import SignInPage from "./components/SignIn";
+import SignInPage from "./components/Authentication/SignIn";
 import TripsBoard from "./components/TripsBoard";
 import TripView from "./components/TripView";
 import CreateTripPage from "./components/CreateTrip";
 import EditTripPage from "./components/EditTrip";
+import { createContext } from "react";
+import { useSession } from "./lib/use-session";
 
 const router = createBrowserRouter([
   {
@@ -54,13 +56,21 @@ function App() {
 
 export default App;
 
+export const UserContext = createContext({
+  session: null,
+  profile: null,
+});
+
 function Layout() {
+  const tripshareUserInfo = useSession();
   return (
     <>
-      <Navbar />
-      <Container>
-        <Outlet />
-      </Container>
+      <UserContext.Provider value={tripshareUserInfo}>
+        <Navbar />
+        <Container>
+          <Outlet />
+        </Container>
+      </UserContext.Provider>
     </>
   );
 }
