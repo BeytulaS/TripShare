@@ -13,7 +13,9 @@ CREATE TABLE shared_trips (
   destination_city TEXT NOT NULL,
   trip_date DATE NOT NULL,
   trip_time TIME NOT NULL,
-  info TEXT NOT NULL
+  info TEXT NOT NULL,
+  available_seats INTEGER NOT NULL CHECK (available_seats > 0 AND available_seats <= 30),
+  taken_seats uuid[] DEFAULT '{}'::UUID[] CHECK (cardinality(taken_seats) <= available_seats)
 );
 
 alter table user_profiles enable row level security;

@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { UserContext } from "../App";
+import { UserContext } from "../../App";
 import {
   Container,
   Typography,
@@ -17,8 +17,8 @@ import {
   TimePicker,
 } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
-import { supaClient } from "../lib/supa-client";
-import ErrorDialog from "./ErrorDialog";
+import { supaClient } from "../../lib/supa-client";
+import ErrorDialog from "../ErrorDialog";
 
 export default function CreateTripPage() {
   const { session } = useContext(UserContext);
@@ -28,6 +28,11 @@ export default function CreateTripPage() {
   const [timeValue, setTimeValue] = useState(null);
   const [openErrorDialog, setOpenErrorDialog] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const minDate = dayjs();
+  const shouldDisableDate = (date) => {
+    return dayjs(date).isBefore(minDate, "day");
+  };
 
   const handleStartingCityChange = (event) => {
     setStartingCity(event.target.value);
@@ -91,6 +96,7 @@ export default function CreateTripPage() {
           destination_city: destination,
           trip_date: formattedDate,
           trip_time: formattedTime,
+          available_seats: parseInt(seats),
           info: description,
         },
       ])
@@ -171,6 +177,8 @@ export default function CreateTripPage() {
                       id="date"
                       name="date"
                       label="Дата на пътуването"
+                      minDate={minDate}
+                      shouldDisableDate={shouldDisableDate}
                       value={dateValue}
                       onChange={(newValue) => setDateValue(newValue)}
                     />

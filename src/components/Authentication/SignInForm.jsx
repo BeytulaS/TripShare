@@ -52,7 +52,7 @@ export default function SignInForm({ onFormTypeChange }) {
         }}
       >
         <Typography component="h1" variant="h4">
-          Sign In
+          Вход
         </Typography>
         <Container
           component="form"
@@ -70,10 +70,8 @@ export default function SignInForm({ onFormTypeChange }) {
             required
             fullWidth
             id="email"
-            label="Email Address"
+            label="Имейл адрес"
             name="email"
-            autoComplete="email"
-            autoFocus
             sx={{ mt: 2 }}
           />
           <TextField
@@ -81,9 +79,8 @@ export default function SignInForm({ onFormTypeChange }) {
             fullWidth
             type="password"
             id="password"
-            label="Password"
+            label="Парола"
             name="password"
-            autoComplete="current-password"
             sx={{ mt: 2 }}
           />
           <Button
@@ -92,14 +89,17 @@ export default function SignInForm({ onFormTypeChange }) {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Sign In
+            Вход
           </Button>
-          <Grid container sx={{ alignItems: "center" }}>
+          <Grid
+            container
+            sx={{ alignItems: "center", justifyContent: "center" }}
+          >
             <Grid item>
-              <Typography>Don't have an account?</Typography>
+              <Typography>Нямате профил?</Typography>
             </Grid>
             <Grid item>
-              <Button onClick={handleChangeFormClick}>Sign up</Button>
+              <Button onClick={handleChangeFormClick}>Регистрация</Button>
             </Grid>
           </Grid>
         </Container>

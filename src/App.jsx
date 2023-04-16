@@ -6,10 +6,11 @@ import Navbar from "./components/Navbar";
 import HomePage from "./components/Home";
 import ProfilePage from "./components/Profile";
 import SignInPage from "./components/Authentication/SignIn";
-import TripsBoard from "./components/TripsBoard";
-import TripView from "./components/TripView";
-import CreateTripPage from "./components/CreateTrip";
-import EditTripPage from "./components/EditTrip";
+import ProfileCompletionForm from "./components/Authentication/ProfileCompletionForm";
+import TripsBoard from "./components/TripComponents/TripsBoard";
+import TripView from "./components/TripComponents/TripView";
+import CreateTripPage from "./components/TripComponents/CreateTrip";
+import EditTripPage from "./components/TripComponents/EditTrip";
 import { createContext } from "react";
 import { useSession } from "./lib/use-session";
 
@@ -45,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: "/trips/:id/edit",
         element: <EditTripPage />,
+      },
+      {
+        path: "/complete-profile",
+        element: <ProfileCompletionForm />,
       },
     ],
   },

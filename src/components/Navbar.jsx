@@ -44,22 +44,22 @@ export default function Navbar() {
           {session?.user ? (
             <>
               <Button color="inherit" component={Link} to="/trips">
-                Trips
+                Пътувания
               </Button>
               <Button color="inherit" component={Link} to="/profile">
-                Profile
+                Профил
               </Button>
               <Button color="inherit" onClick={handleSignOut}>
-                Sign Out
+                Изход
               </Button>
             </>
           ) : (
             <>
               <Button color="inherit" component={Link} to="/trips">
-                Trips
+                Пътувания
               </Button>
               <Button color="inherit" component={Link} to="/signin">
-                Sign In
+                Вход
               </Button>
             </>
           )}
