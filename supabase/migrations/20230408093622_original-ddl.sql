@@ -1,8 +1,19 @@
 create table user_profiles (
   user_id uuid primary key references auth.users (id) not null,
+  age integer CHECK (age >= 18 AND age < 100),
   username text unique not null
   CONSTRAINT proper_username CHECK (username ~* '^[a-zA-ZА-Яа-я ]+$')
-  CONSTRAINT username_length CHECK (char_length(username) > 3 and char_length(username) < 15)
+  CONSTRAINT username_length CHECK (char_length(username) > 3 and char_length(username) < 30)
+);
+
+CREATE TABLE shared_trips (
+  id SERIAL PRIMARY KEY,
+  author_id UUID REFERENCES auth.users(id) NOT NULL,
+  starting_city TEXT NOT NULL,
+  destination_city TEXT NOT NULL,
+  trip_date DATE NOT NULL,
+  trip_time TIME NOT NULL,
+  info TEXT NOT NULL
 );
 
 alter table user_profiles enable row level security;

@@ -8,18 +8,21 @@ import {
   CssBaseline,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { UserContext } from "../App";
+import { supaClient } from "../lib/supa-client";
 
 export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { session } = useContext(UserContext);
 
-  function handleSignIn() {
-    setIsLoggedIn(true);
-  }
-
-  function handleSignOut() {
-    setIsLoggedIn(false);
-  }
+  const handleSignOut = async () => {
+    try {
+      await supaClient.auth.signOut();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <CssBaseline>
@@ -38,7 +41,7 @@ export default function Navbar() {
             </Typography>
           </Button>
 
-          {isLoggedIn ? (
+          {session?.user ? (
             <>
               <Button color="inherit" component={Link} to="/trips">
                 Trips
@@ -55,12 +58,7 @@ export default function Navbar() {
               <Button color="inherit" component={Link} to="/trips">
                 Trips
               </Button>
-              <Button
-                color="inherit"
-                component={Link}
-                to="/signin"
-                onClick={handleSignIn}
-              >
+              <Button color="inherit" component={Link} to="/signin">
                 Sign In
               </Button>
             </>
