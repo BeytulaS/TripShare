@@ -19,6 +19,7 @@ import {
 import dayjs from "dayjs";
 import { supaClient } from "../../lib/supa-client";
 import ErrorDialog from "../ErrorDialog";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateTripPage() {
   const { session } = useContext(UserContext);
@@ -28,6 +29,7 @@ export default function CreateTripPage() {
   const [timeValue, setTimeValue] = useState(null);
   const [openErrorDialog, setOpenErrorDialog] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   const minDate = dayjs();
   const shouldDisableDate = (date) => {
@@ -106,6 +108,7 @@ export default function CreateTripPage() {
       setErrorMessage(tripError.message);
       setOpenErrorDialog(true);
     }
+    navigate("/trips");
   };
 
   return (
@@ -221,7 +224,7 @@ export default function CreateTripPage() {
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  Create Trip
+                  Публикувай
                 </Button>
               </Container>
             </Container>

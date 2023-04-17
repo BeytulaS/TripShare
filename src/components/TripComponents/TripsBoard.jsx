@@ -37,7 +37,7 @@ export default function TripsBoard() {
     <>
       <Container
         component="main"
-        maxWidth="lg"
+        maxWidth="xl"
         sx={{
           marginTop: 8,
           display: "flex",
