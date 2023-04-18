@@ -19,27 +19,33 @@ import {
 import dayjs from "dayjs";
 import { supaClient } from "../../lib/supa-client";
 import ErrorDialog from "../ErrorDialog";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useTrip } from "../../lib/trip-hooks";
 
 export default function EditTripPage() {
   const { id: tripId } = useParams();
   const { trip, loading } = useTrip(tripId);
+  const navigate = useNavigate();
 
   const { session } = useContext(UserContext);
   const [startingCity, setStartingCity] = useState("");
   const [destinationCity, setDestinationCity] = useState("");
   const [description, setDescription] = useState("");
-  const [seatsValue, setSeatsValue] = useState(null);
-  const [dateValue, setDateValue] = useState(null);
-  const [timeValue, setTimeValue] = useState(null);
+  const [seatsValue, setSeatsValue] = useState("");
+  const [dateValue, setDateValue] = useState("");
+  const [timeValue, setTimeValue] = useState("");
   const [openErrorDialog, setOpenErrorDialog] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     if (trip) {
+      const datetimeStr = `${trip.trip_date}T${trip.trip_time}`;
+      const formattedDate = dayjs(datetimeStr).format("MM/DD/YYYY");
+      const formattedTime = dayjs(trip.trip_time, "HH:mm:ss").toDate();
       setStartingCity(trip.starting_city);
       setDestinationCity(trip.destination_city);
+      setDateValue(dayjs(formattedDate));
+      setTimeValue(formattedTime);
       setSeatsValue(trip.available_seats);
       setDescription(trip.info);
       console.log(trip);
@@ -71,12 +77,13 @@ export default function EditTripPage() {
       setErrorMessage(error.message);
       setOpenErrorDialog(true);
     }
+    navigate(`/trips/${trip.id}`);
   };
 
   const minDate = dayjs();
-  /* const shouldDisableDate = (date) => {
+  const shouldDisableDate = (date) => {
     return dayjs(date).isBefore(minDate, "day");
-  }; */
+  };
 
   const handleStartingCityChange = (event) => {
     setStartingCity(event.target.value);
@@ -191,12 +198,11 @@ export default function EditTripPage() {
                     <DatePicker
                       required
                       fullWidth
-                      id="date"
-                      name="date"
                       label="Дата на пътуването"
                       minDate={minDate}
-                      //shouldDisableDate={shouldDisableDate}
+                      shouldDisableDate={shouldDisableDate}
                       value={dateValue}
+                      inputFormat="dd/MM/yyyy"
                       onChange={(newValue) => setDateValue(newValue)}
                     />
                   </Grid>
@@ -204,8 +210,6 @@ export default function EditTripPage() {
                     <TimePicker
                       required
                       fullWidth
-                      id="time"
-                      name="time"
                       label="Час на пътуването"
                       value={timeValue}
                       onChange={(newValue) => setTimeValue(newValue)}
@@ -241,7 +245,7 @@ export default function EditTripPage() {
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  Create Trip
+                  Редакция
                 </Button>
               </Container>
             </Container>

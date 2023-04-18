@@ -45,8 +45,14 @@ export default function TripsBoard() {
           alignItems: "center",
         }}
       >
-        <Button component={Link} to="/trips/create">
-          Сподели пътуване
+        <Button
+          component={Link}
+          variant="contained"
+          color="primary"
+          to="/trips/create"
+          sx={{ fontSize: "30px", mb: 5 }}
+        >
+          Добави пътуване
         </Button>
         <Typography component="h2" variant="h4">
           Предстоящи пътувания
@@ -57,6 +63,9 @@ export default function TripsBoard() {
         <Typography component="h2" variant="h4">
           Минали пътувания
         </Typography>
+        {trips.expired.map((trip) => (
+          <TripCard key={trip.id} trip={trip} />
+        ))}
       </Container>
     </>
   );

@@ -21,6 +21,7 @@ export default function TripCard({ trip }) {
         cursor: "pointer",
         pl: 4,
         pr: 4,
+        mt: 1,
         display: "flex",
         flexDirection: "row",
         justifyContent: "space-between",

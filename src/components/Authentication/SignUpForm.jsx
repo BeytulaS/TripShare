@@ -92,7 +92,6 @@ export default function SignUpForm({ onFormTypeChange }) {
           </Button>
           <Grid
             container
-            fullWidth
             sx={{
               direction: "row",
               alignItems: "center",

@@ -8,6 +8,7 @@ create table user_profiles (
 
 CREATE TABLE shared_trips (
   id SERIAL PRIMARY KEY,
+  created_at timestamp with time zone default now() not null,
   author_id UUID REFERENCES auth.users(id) NOT NULL,
   starting_city TEXT NOT NULL,
   destination_city TEXT NOT NULL,
@@ -16,6 +17,15 @@ CREATE TABLE shared_trips (
   info TEXT NOT NULL,
   available_seats INTEGER NOT NULL CHECK (available_seats > 0 AND available_seats <= 30),
   taken_seats uuid[] DEFAULT '{}'::UUID[] CHECK (cardinality(taken_seats) <= available_seats)
+);
+
+CREATE TABLE join_requests (
+  id SERIAL PRIMARY KEY,
+  sender_id UUID references auth.users(id) UNIQUE NOT NULL,
+  sender_name TEXT NOT NULL,
+  phone_number TEXT CHECK (char_length(phone_number) < 20) NOT NULL,
+  request_message TEXT CHECK (char_length(request_message) < 300),
+  trip_id SERIAL references shared_trips(id) NOT NULL
 );
 
 alter table user_profiles enable row level security;
