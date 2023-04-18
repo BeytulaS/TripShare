@@ -19,7 +19,7 @@ import {
 import dayjs from "dayjs";
 import { supaClient } from "../../lib/supa-client";
 import ErrorDialog from "../ErrorDialog";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function CreateTripPage() {
   const { session } = useContext(UserContext);
@@ -236,9 +236,20 @@ export default function CreateTripPage() {
           </Container>
         </LocalizationProvider>
       ) : (
-        <>
-          <h1>User logged out</h1>
-        </>
+        <Container
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <Typography component="h1" variant="h2">
+            Не сте влезли в профила си
+          </Typography>
+          <Button component={Link} to="/signin" sx={{ fontSize: "32px" }}>
+            Вход
+          </Button>
+        </Container>
       )}
     </>
   );
